@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+<div>
+  <div class="container">
+    <h4>Deposit</h4>
+    <div class="row">
+      <div class="col-sm">
+        <form id="deposit-form">
+          <div class="row">
+            <label for="token_name" class="form-label">token name (address)</label>
+            <input type="text" class="form-control" id="token_name" disabled>
+          </div>
+          <div class="row">
+            <label for="amount" class="form-label">amount</label>
+            <input type="number" class="form-control" id="amount" step="0.01">
+            <small class="form-text text-muted">
+              your wallet balance of token: <span id="metamask_token_balance">(loading!)</span>, ETH: <span id="metamask_eth_balance">(loading!)</span>
+            </small>
+          </div>
+          <div class="row">
+            <button class="btn btn-primary" type="submit" id="deposit-btn">Deposit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}
+{% block scriptBlock %}
+<script src="/static/js/dashboard/transaction.js?v={{VERSION}}"></script>
+<script src="/static/js/dashboard/deposit.js?v={{VERSION}}"></script>
+
+{% endblock scriptBlock %}

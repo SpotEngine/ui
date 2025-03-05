@@ -1,0 +1,29 @@
+{% extends "portal/base.html" %}
+
+{% block body %}
+<form id="login-form">
+    <h4>Welcome to {{SITE_NAME}}</h4>
+    <div class="col-md-4">
+      <label for="username" class="form-label">Email</label>
+      <input type="text" class="form-control" id="username" required>
+    </div>
+    <div class="col-md-4">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" required>
+    </div>
+    <br>
+    <div class="col-md-4 alert alert-danger" role="alert" id="non_fields_error_div" style="display: none;">
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-primary" type="submit">Login</button>
+      <span style="float: right;"><a href="{% url 'register' %}">Not registered</a></span>
+    </div>
+</from>
+<script>
+document.getElementById("login-form").addEventListener("submit", function(event){
+  event.preventDefault();
+  login("{% url 'spot' %}");
+});
+</script>
+  
+{% endblock body %}

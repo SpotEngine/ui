@@ -1,0 +1,69 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+<div class="row">
+  <div class="col-sm">
+    <div class="row" id="selectBaseQuoteTable">
+        <h5>First select base and quote tokens</h5>
+        <div id="token-div"></div>
+    </div>
+    <form id="symbol-form" style="display: none;">
+      <h4>Create a new symbol</h4>
+      <div class="row">
+        <div class="col-sm">
+          <label for="base" class="form-label">base</label>
+          <input class="form-control" id="base" required disabled>  
+        </div>
+        <div class="col-sm">
+          <label for="quote" class="form-label">quote</label>
+          <input class="form-control" id="quote" required disabled>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <label for="symbol" class="form-label">symbol</label>
+        <input class="form-control" id="symbol" disabled> 
+         <!-- <span style="float: right;"><a href="#" onclick="resetForm()">Reset</a></span> -->
+      </div>
+      <br>
+      <div class="row">
+        <label for="tick_size" class="form-label">tick size</label>
+        <input type="number" class="form-control"  min="0" step="0.000001" id="tick_size" required>
+      </div>
+      <div class="row">
+        <label for="lot_size" class="form-label">lot size</label>
+        <input type="number" class="form-control"  min="0" step="0.000001" id="lot_size" required>
+      </div>
+      <br>
+      <div class="row alert alert-danger" role="alert" id="non_fields_error_div" style="display: none;">
+      </div>
+      <div class="row">
+        <button class="btn btn-primary" type="submit">Create symbol</button>
+        <!-- <button class="btn btn-danger">Clear</button> -->
+        
+      </div>
+    </from>
+  </div>
+  <div class="col-sm">
+    <h5>My symbols</h5>
+      <div id="symbol-div"></div>
+  </div>
+  
+</div>
+
+
+{% endblock body %}
+
+{% block scriptBlock %}
+<script src="/static/js/dashboard/spot/symbol.js?v={{VERSION}}"></script>
+<script src="/static/js/dashboard/spot/token.js?v={{VERSION}}"></script>
+<script>
+  resetForm();
+    document.getElementById("symbol-form").addEventListener("submit", function(event){
+        event.preventDefault();
+        createSymbol();
+    });
+    createTokenTable(true);
+    createMySymboltTable();
+</script>
+{% endblock scriptBlock %}

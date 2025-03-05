@@ -1,0 +1,33 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+<div>
+  <div class="container">
+    <h4>Withdraw</h4>
+    <div class="row">
+      <div class="col-sm">
+        <form id="withdraw-form">
+          <div class="row">
+            <label for="token_name" class="form-label">token name (address)</label>
+            <input type="text" class="form-control" id="token_name" disabled>
+          </div>
+          <div class="row">
+            <label for="amount" class="form-label">amount</label>
+            <input type="number" class="form-control" id="amount" step="0.000001" min="0">
+          </div>
+          <br>
+          <div class="row">
+            <button class="btn btn-primary" type="submit" id="withdraw-btn">Withdraw</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}
+{% block scriptBlock %}
+<script src="/static/js/dashboard/transaction.js?v={{VERSION}}"></script>
+<script src="/static/js/dashboard/withdraw.js?v={{VERSION}}"></script>
+
+{% endblock scriptBlock %}

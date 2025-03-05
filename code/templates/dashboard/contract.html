@@ -1,0 +1,52 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+<div class="row">
+  <div class="col-sm">
+    <h4>Create a new contract</h4>
+    <form id="contract-form">
+      <div class="row">
+        <label for="base" class="form-label">base symbol</label>
+        <input class="form-control" id="base" required>
+      </div>
+      <div class="row">
+        <label for="quote" class="form-label">quote</label>
+        <select  class="form-select" aria-label="Default select example" id="quote">
+          <option value="usdt">usdt</option>
+        </select>
+      </div>
+      <div class="row">
+        <label for="tick_size" class="form-label">tick size</label>
+        <input type="number" class="form-control"  min="0" step="0.000001" id="tick_size" required>
+      </div>
+      <div class="row">
+        <label for="lot_size" class="form-label">lot size</label>
+        <input type="number" class="form-control"  min="0" step="0.000001" id="lot_size" required>
+      </div>
+      <div class="row">
+        <label for="max_size" class="form-label">max order size</label>
+        <input type="number" class="form-control"  min="0" step="0.000001" id="max_size" required>
+      </div>
+      <br>
+      <div class="row alert alert-danger" role="alert" id="non_fields_error_div" style="display: none;">
+      </div>
+      <div class="row">
+        <button class="btn btn-primary" type="submit">Create contract</button>
+      </div>
+    </from>
+  </div>
+</div>
+
+
+{% endblock body %}
+
+{% block scriptBlock %}
+<script src="/static/js/dashboard/perp/contract.js?v={{VERSION}}"></script>
+<script>
+      document.getElementById("contract-form").addEventListener("submit", function(event){
+        event.preventDefault();
+        createContract();
+    });
+
+</script>
+{% endblock scriptBlock %}

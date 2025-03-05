@@ -1,0 +1,13 @@
+.capitalizeTitle {
+    text-transform: capitalize;
+}
+.bidRow {
+    color: aquamarine;
+}
+.askRow {
+    color:rgb(255, 0, 195);
+}
+
+label {
+    text-transform: capitalize;
+}

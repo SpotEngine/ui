@@ -1,0 +1,46 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+<div class="row">
+  <div class="col-sm">
+    <h4>Create a new token</h4>
+    <form id="token-form">
+      <div class="row">
+        <label for="ticker" class="form-label">symbol</label>
+        <input class="form-control" id="ticker" required>
+      </div>
+      <div class="row">
+        <label for="name" class="form-label">name</label>
+        <input class="form-control" id="name" required>
+      </div>
+      <div class="row">
+        <label for="supply" class="form-label">supply</label>
+        <input type="number" class="form-control"  min="1" step="1" id="supply" required>
+      </div>
+      <br>
+      <div class="row alert alert-danger" role="alert" id="non_fields_error_div" style="display: none;">
+      </div>
+      <div class="row">
+        <button class="btn btn-primary" type="submit">Create token</button>
+      </div>
+    </from>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-sm">
+    <div id="token-div"></div>
+  </div>
+</div>
+{% endblock body %}
+
+{% block scriptBlock %}
+<script src="/static/js/dashboard/spot/token.js?v={{VERSION}}"></script>
+<script>
+    document.getElementById("token-form").addEventListener("submit", function(event){
+        event.preventDefault();
+        createToken();
+    });
+    createTokenTable(false);
+</script>
+{% endblock scriptBlock %}

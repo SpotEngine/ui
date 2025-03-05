@@ -1,0 +1,106 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+
+
+<div class="row">
+  <div class="col-sm-3">
+    <div id="contract-div"></div>
+  </div>
+  <div class="col-sm">
+    <h4>order book</h4>
+    <div class="row">
+      <table id="orderbook"></table>
+      <!-- <div class="col-sm" id="bids"></div>
+      <div class="col-sm" id="asks"></div> -->
+    </div>
+  </div>
+  <div class="col-sm-3">    
+    <form id="order-form">
+      <div class="row">
+        <label for="symbol" class="form-label">symbol</label>
+        <input class="form-control" id="symbol" placeholder="select symbol" required disabled>
+      </div>
+      <div class="row">
+        <label for="type" class="form-label">order type</label>
+        <select  class="form-select" aria-label="Default select example" id="type" disabled>
+          <option value="limit">limit</option>
+          <!-- <option value="market">market</option> -->
+        </select>
+      </div>
+      <div class="row">
+        <label for="direction" class="form-label">direction</label>
+        <select  class="form-select" aria-label="Default select example" id="direction">
+          <option value="long">long</option>
+          <option value="short">short</option>
+        </select>
+      </div>
+      <div class="row">
+        <label for="price" class="form-label">price</label>
+        <input type="number" class="form-control" id="price" min="0" required>
+      </div>
+      <div class="row">
+        <label for="size" class="form-label">size</label>
+        <input type="number" class="form-control"  min="0" id="size" required>
+      </div>
+
+      <div class="row">
+        <label for="leverage" class="form-label">leverage</label>
+        <div class="col-sm-9">
+          <select  class="form-select" id="leverage" disabled>
+            <option value="1">1</option>
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+          </select>  
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-outline-primary btn-small" onclick="toogleLeverage()" id="leverage-btn">change</button>
+        </div>
+      </div>
+      <div class="row">
+        <label for="balance" class="form-label">balance</label>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="quote">-</span>
+          </div>
+          <input type="text" class="form-control" id="balance" value="0" disabled>
+        </div>
+      </div>  
+      <br>
+      <div class="row alert alert-danger" role="alert" id="non_fields_error_div" style="display: none;">
+      </div>
+      <div class="row">
+        <button class="btn btn-primary" type="submit">Send Order</button>
+      </div>
+    </from>
+
+  </div>
+</div>
+<div>
+  <div class="input-group mb-3"></div>
+    <select id="account-preview" class="custom-select" onchange="showAccountPerpPreview()">
+      <option value="positions">Positions</option>
+      <option value="open_orders">Open orders</option>
+      <option value="orders_history">Orders History</option>
+    </select>
+  </div>  
+    
+    <div>
+      <div id="order-div"></div>
+      <div id="position-div"></div>
+    </div>
+</div>
+
+
+{% endblock body %}
+
+{% block scriptBlock %}
+<script src="/static/js/dashboard/perp/contract.js?v={{VERSION}}"></script>
+<script src="/static/js/dashboard/perp/position.js?v={{VERSION}}"></script>
+<script src="/static/js/dashboard/perp/order.js?v={{VERSION}}"></script>
+<script src="/static/js/dashboard/perp/perpetual.js?v={{VERSION}}"></script>
+
+{% endblock scriptBlock %}

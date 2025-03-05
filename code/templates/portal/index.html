@@ -1,0 +1,30 @@
+{% extends "portal/base.html" %}
+
+{% block body %}
+<h4>Welcome to {{SITE_NAME}}</h4>
+<h6>The First Forex Trading Platform Where You Control the Fees</h6>
+<br>
+<div>
+    Unlike traditional FX platforms, we don’t charge any trading fees. Instead, you pay a simple monthly subscription and get full control over your trading costs.
+    <br>
+    💳 <b>Simple subscription</b> – Just a monthly subscription, no per-trade commissions
+    <br>
+    💰 <b>Customize your fee</b> – Pay other traders to fill your order or set it to zero and wait
+    <br>
+    ⚡ <b>Faster execution</b> – Increase your fee to attract liquidity and trade instantly  
+    <br>
+    📈 <b>Provide liquidity & collect fees</b> – Fill others’ orders and earn the fee they offer
+    <br>
+    🔍 <b>Full transparency</b> – See all prices and fees directly in the order book  
+    <br>
+    With your subscription, you can trade as much as you want. The only fee you pay is what you choose to offer to other traders for faster execution.
+    <br>
+    <br>
+    🚀 <a href="{% url 'register' %}">
+         <b>Join now and trade on your terms!</b> 
+    </a>
+</div>
+
+
+
+{% endblock body %}

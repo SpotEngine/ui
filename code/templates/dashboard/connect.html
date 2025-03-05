@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+
+<div id="connect" style="display: none;">
+    <h4>Please connect your wallet to {{SITE_NAME}}</h4>
+    <div>
+        <button onclick="connectOrGetWalletAddress()">connect wallet</button>
+    </div>    
+</div>
+
+<div id="signin" style="display: none;">
+    <h4>Please sign a token to login:</h4>
+    <div>
+        <button onclick="signin()">Sign</button>
+    </div>    
+</div>
+
+<div id="signout" style="display: none;">
+    <h4>You are signin, you can singout</h4>
+    <div>
+        <button onclick="signout()">Sign out</button>
+    </div>    
+</div>
+
+{% block scriptBlock %}
+<script>initWeb3()</script>
+
+{% endblock scriptBlock %}
+
+
+{% endblock body %}

@@ -90,7 +90,7 @@ function selectSymbol(){
 }
 
 async function setWalletBalance(){
-    let response = await send_request('GET', `/wallet/trader/asset/`, {'token': `${SELECTED_SYMBOL_PARAMS['quote']},${SELECTED_SYMBOL_PARAMS['base']}`}, true);
+    let response = await send_request('GET', `/wallet/trader/asset/`, {'token': `${SELECTED_SYMBOL_PARAMS['quote']},${SELECTED_SYMBOL_PARAMS['base']}`}, auth=true);
     let assets = response['results'];
     let balances = {
         "base": {

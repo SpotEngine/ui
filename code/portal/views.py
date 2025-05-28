@@ -14,3 +14,7 @@ class LoginView(BaseTemplateClass):
 class RegisterView(BaseTemplateClass):
     build_path = f'register/index.html'
     template_name = f"{APP_NAME}/register.html"
+
+class ConnectView(BaseTemplateClass):
+    build_path = f'connect/index.html'
+    template_name = f"{APP_NAME}/connect.html"

@@ -19,7 +19,7 @@ async function getContract(symbol) {
     return params
 }
 
-function createContractTable(onClickCallback, selectSymbol){
+async function createContractTable(onClickCallback, selectSymbol){
     let div = document.getElementById('contract-div');
     div.innerHTML = '<table id="contract-table" class="display" style="width:100%"></table>';
     let columns= [
@@ -46,7 +46,7 @@ function createContractTable(onClickCallback, selectSymbol){
         //     orderable: true,
         // },
     ];
-    let conf = getBaseDataTableConf(`/perp/market/contract/`, columns, false);
+    let conf = await getBaseDataTableConf(`/perp/market/contract/`, columns, false);
     let table = $('#contract-table').DataTable(conf);
     table.on('click', 'tr', function () {
         onClickCallback(table.row(this));

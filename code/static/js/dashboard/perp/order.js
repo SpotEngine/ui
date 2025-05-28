@@ -24,7 +24,7 @@ async function cancelOrder(order_id){
     let response = await send_request('DELETE', endpoint, {}, true);
     console.log(response);
 }  
-function createOrderTable(status, cancelable){
+async function createOrderTable(status, cancelable){
     let div = document.getElementById('order-div');
     div.innerHTML = '<table id="order-table" class="display" style="width:100%"></table>';
     let columns= [
@@ -81,6 +81,6 @@ function createOrderTable(status, cancelable){
             }
         });
     }
-    let conf = getBaseDataTableConf(`/perp/trader/order/?status=${status}`, columns);
+    let conf = await getBaseDataTableConf(`/perp/trader/order/?status=${status}`, columns);
     let table = $('#order-table').DataTable(conf);
 }

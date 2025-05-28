@@ -1,4 +1,4 @@
-function createTradeTable(){
+async function createTradeTable(){
     console.log('createTradeTable');
     let div = document.getElementById('trade-div');
     div.innerHTML = '<table id="trade-table" class="display" style="width:100%"></table>';
@@ -53,6 +53,6 @@ function createTradeTable(){
             }        
         },
     ];
-    let conf = getBaseDataTableConf(`/spot/trader/trade/`, columns);
+    let conf = await getBaseDataTableConf(`/spot/trader/trade/`, columns);
     let table = $('#trade-table').DataTable(conf);
 }

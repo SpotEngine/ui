@@ -1,0 +1,34 @@
+{% extends "portal/base.html" %}
+
+{% block body %}
+<h4>Welcome to {{SITE_NAME}}</h4>
+
+<!-- MetaMask Connection Section -->
+<div class="metamask-section" style="margin-top: 2rem; padding: 1rem; border: 1px solid #ccc; border-radius: 8px;">
+    <h5>Connect Your Wallet</h5>
+    <div id="wallet-status" style="margin: 1rem 0;">
+        <p>Status: <span id="connection-status">Not Connected</span></p>
+        <p>Network: <span id="network-status">Not Connected</span></p>
+        <p>Address: <span id="wallet-address">Not Connected</span></p>
+    </div>
+    <button id="connect-wallet" class="btn btn-primary" onclick="connectWallet()">Connect MetaMask</button>
+    <button id="switch-network" class="btn btn-secondary" style="display: none;">Switch to Arbitrum</button>
+</div>
+
+<!-- Error Modal -->
+<div id="error-modal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);">
+    <div class="modal-content" style="background: white; margin: 15% auto; padding: 20px; width: 80%; max-width: 500px; border-radius: 8px;">
+        <h3>Error</h3>
+        <p id="error-message"></p>
+        <button onclick="closeErrorModal()" class="btn btn-primary">Close</button>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="/static/js/base/web3.js?v={{VERSION}}"></script>
+<script>
+checkInitialConnection();
+
+</script>
+
+{% endblock body %}

@@ -19,7 +19,7 @@ async function getSymbol(symbol) {
     return params
 }
 
-function createTokenTable(showAction){
+async function createTokenTable(showAction){
     let div = document.getElementById('token-div');
     div.innerHTML = '<table id="token-table" class="display" style="width:100%"></table>';
     let columns= [
@@ -55,7 +55,7 @@ function createTokenTable(showAction){
             }        
         });
     }
-    let conf = getBaseDataTableConf(`/wallet/trader/token/`, columns, true);
+    let conf = await getBaseDataTableConf(`/wallet/trader/token/`, columns, true);
     let table = $('#token-table').DataTable(conf);
 }
 

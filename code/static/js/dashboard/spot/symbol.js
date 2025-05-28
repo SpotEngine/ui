@@ -19,7 +19,7 @@ async function getSymbol(symbol) {
     return params
 }
 
-function createSymboltTable(onClickCallback, selectSymbol){
+async function createSymboltTable(onClickCallback, selectSymbol){
     let div = document.getElementById('symbol-div');
     div.innerHTML = '<table id="symbol-table" class="display" style="width:100%"></table>';
     let columns= [
@@ -47,7 +47,7 @@ function createSymboltTable(onClickCallback, selectSymbol){
         //     orderable: true,
         // },
     ];
-    let conf = getBaseDataTableConf(`/spot/market/symbol/`, columns, false);
+    let conf = await getBaseDataTableConf(`/spot/market/symbol/`, columns, false);
     let table = $('#symbol-table').DataTable(conf);
     table.on('click', 'tr', function () {
         onClickCallback(table.row(this));
@@ -56,7 +56,7 @@ function createSymboltTable(onClickCallback, selectSymbol){
 }
 
 
-function createMySymboltTable(){
+async function createMySymboltTable(){
     let div = document.getElementById('symbol-div');
     div.innerHTML = '<table id="symbol-table" class="display" style="width:100%"></table>';
     let columns= [
@@ -98,7 +98,7 @@ function createMySymboltTable(){
             orderable: false,
         },
     ];
-    let conf = getBaseDataTableConf(`/spot/trader/symbol/`, columns, true);
+    let conf = await getBaseDataTableConf(`/spot/trader/symbol/`, columns, true);
     let table = $('#symbol-table').DataTable(conf);
 }
 

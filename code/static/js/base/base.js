@@ -1,6 +1,5 @@
 const SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS'];
 const pageLength = 20;
-let userWalletAddress;
 let chainId;
 
 String.prototype.format = function () {
@@ -33,19 +32,74 @@ function set_token(token){
 function remove_token(){
     localStorage.removeItem('token');
 }
+function toChecksumAddress(address) {
+    if (!address) return null;
+    // Remove '0x' prefix if it exists
+    address = address.toLowerCase().replace('0x', '');
+    // Add '0x' prefix
+    address = '0x' + address;
+    return ethers.utils.getAddress(address);
+}
 
-function get_headers(auth){
-    headers = {
-        'Content-Type':	'application/json',
+async function getUserWalletAddress() {
+    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    console.log("accounts", accounts);
+    if (accounts.length > 0) {
+        return toChecksumAddress(accounts[0])
+
+    }else{
+        console.log("no accounts");
+        // window.location = WEB3_CONNECT_URL;
+        return null;
+    }
+}
+
+
+async function get_headers(auth){
+    let headers = {
+        'Content-Type': 'application/json',
     }
     if (auth){
-        let token = getToken();
-        headers['Authorization'] = "Bearer " + token;
+        try {
+            const walletAddress = await getUserWalletAddress();
+            if (walletAddress) {
+                headers['Authorization'] = walletAddress;
+            } else {
+                console.log('no wallet address');
+            }
+        } catch (error) {
+            console.error('Error getting wallet address:', error);
+        }
     }
-    return headers
+    return headers;
+}
+
+async function signWithMetaMask(message) {
+    try {
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        if (accounts.length === 0) {
+            console.log('No accounts found');
+            return null;
+        }
+        
+        // Add Ethereum Signed Message prefix
+        // const messageToSign = `\x19Ethereum Signed Message:\n${message.length}${message}`;
+        
+        // Sign the message
+        const signature = await window.ethereum.request({
+            method: 'personal_sign',
+            params: [message, accounts[0]]
+        });
+        
+        return signature;
+    } catch (error) {
+        console.error('Error signing message:', error);
+        return null;
+    }
 }
 
 async function send_request(method, endpoint, params={}, auth=false, non_fields_error_div_id='non_fields_error_div'){
+    // console.log(method, endpoint, params, auth, non_fields_error_div_id);
     let non_fields_error_div = document.getElementById(non_fields_error_div_id);
     if (non_fields_error_div){
         non_fields_error_div.innerText = '';
@@ -53,16 +107,22 @@ async function send_request(method, endpoint, params={}, auth=false, non_fields_
     }
     method = method.toUpperCase();
 
-    
     let fetch_params = {
         method: method,
-        headers: get_headers(auth),
+        headers: await get_headers(auth),
     };
+    console.log(method, endpoint, params, auth, non_fields_error_div_id, fetch_params.headers);
 
     if (method == 'GET'){
         endpoint += "?" + new URLSearchParams(params);
     }else {
-        fetch_params['body'] = JSON.stringify(params)
+        params["timestamp"] = Date.now();
+        params["recvWindow"] = 60000;
+        let str_params = "" + new URLSearchParams(params);
+        
+        // Sign the parameters
+        const signature = await signWithMetaMask(str_params);
+        endpoint += "?" + str_params + "&signature=" + signature;
     }
 
     let url = get_url(endpoint);
@@ -70,11 +130,7 @@ async function send_request(method, endpoint, params={}, auth=false, non_fields_
     let status_code = response.status;
     let result = {};
     if (status_code == 401){
-        window.location = LOGIN_URL;
-        // let signin_success = await signin();
-        // if (signin_success){
-        //     return await send_request(method, endpoint, params, non_fields_error_div_id)
-        // }
+        window.location = WEB3_CONNECT_URL;
     } else if (status_code == 500) {
         
     } else if (status_code == 204) {
@@ -124,7 +180,9 @@ function handle400errors(errors, non_fields_error_div){
     });
 }
 
-function getBaseDataTableConf(endpoint, columns, auth=true){
+async function getBaseDataTableConf(endpoint, columns, auth=true){
+    let headers = await get_headers(auth);
+    console.log("getBaseDataTableConf headers:", headers);
     let baseDataTableConf = {
         paging: true,
         processing: true,
@@ -132,7 +190,7 @@ function getBaseDataTableConf(endpoint, columns, auth=true){
         ajax: {
             url: get_url(endpoint),
             dataSrc: 'results',
-            headers: get_headers(auth),
+            headers: headers,
             dataFilter: function (data){
                 response = JSON.parse(data)
                 response.recordsTotal = response.count;
@@ -160,7 +218,7 @@ function getBaseDataTableConf(endpoint, columns, auth=true){
             error: function (xhr, error, code) {
                 if (code === 'Unauthorized'){
                     console.log('Unauthorized')
-                    window.location = LOGIN_URL;
+                    window.location = WEB3_CONNECT_URL;
                 }
             }    
         }, 

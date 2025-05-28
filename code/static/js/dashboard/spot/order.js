@@ -34,7 +34,7 @@ async function cancelOrder(order_id){
         afterOrderEvent()
     }
 }  
-function createOrderTable(status, cancelable){
+async function createOrderTable(status, cancelable){
     let div = document.getElementById('order-div');
     div.innerHTML = '<table id="order-table" class="display" style="width:100%"></table>';
     let columns= [
@@ -89,6 +89,6 @@ function createOrderTable(status, cancelable){
             }
         });
     }
-    let conf = getBaseDataTableConf(`/spot/trader/order/?status=${status}`, columns);
+    let conf = await getBaseDataTableConf(`/spot/trader/order/?status=${status}`, columns);
     let table = $('#order-table').DataTable(conf);
 }

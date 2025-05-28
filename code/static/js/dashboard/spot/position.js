@@ -1,4 +1,4 @@
-function createPositionTable(onClickCallback){
+async function createPositionTable(onClickCallback){
     let div = document.getElementById('position-div');
     div.innerHTML = '<table id="position-table" class="display" style="width:100%"></table>';
     let columns= [
@@ -51,7 +51,7 @@ function createPositionTable(onClickCallback){
         //     }
         // },
     ];
-    let conf = getBaseDataTableConf(`/perp/trader/position/`, columns, true);
+    let conf = await getBaseDataTableConf(`/perp/trader/position/`, columns, true);
     let table = $('#position-table').DataTable(conf);
 }
 

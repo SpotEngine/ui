@@ -18,7 +18,6 @@ CORS_ALLOW_HEADERS = [
     '*',
 ]
 
-X_FRAME_OPTIONS = 'ALLOW-FROM https://web.telegram.org/'
 
 # for bakery to generate static html files
 BASE_DIR = Path(__file__).resolve().parent.parent

@@ -28,6 +28,7 @@ BAKERY_VIEWS = (
     'portal.views.IndexView',
     'portal.views.LoginView',
     'portal.views.RegisterView',
+    'portal.views.ConnectView',
     'dashboard.views.SpotView',
 )
 # AWS_BUCKET_NAME = 'be1000demo'

@@ -30,6 +30,6 @@ BAKERY_VIEWS = (
     'portal.views.RegisterView',
     'dashboard.views.SpotView',
 )
-AWS_BUCKET_NAME = 'be1000demo'
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+# AWS_BUCKET_NAME = 'be1000demo'
+# AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+# AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']

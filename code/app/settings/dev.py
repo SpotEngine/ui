@@ -3,8 +3,8 @@ from .conf_settings import ENVIRONMENT
 if not ENVIRONMENT == "develop":
     raise Exception(f"Environment: {ENVIRONMENT} not set to develop")
 
-# API_HOST = "http://be100demoloadbalancer-1257698492.eu-north-1.elb.amazonaws.com"
-API_HOST = "http://ec2-51-20-67-222.eu-north-1.compute.amazonaws.com"
+API_HOST = "https://be1000-api.netlify.app"
+
 SECRET_KEY = 'k7v@wjji00&63f+95s&*y^l77nhq#2lyge7dp!+^+2r@mj_r=z'
 DEBUG = True
 ALLOWED_HOSTS = ['*']

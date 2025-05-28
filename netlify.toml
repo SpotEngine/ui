@@ -1,0 +1,13 @@
+[build]
+  command = "docker build -t be1000 . && docker run -d -p 8000:8000 be1000"
+  publish = "code/static"
+  base = "code"
+
+[build.environment]
+  DOCKER_BUILDKIT = "1"
+
+[[redirects]]
+  from = "/*"
+  to = "http://localhost:8000/:splat"
+  status = 200
+  force = true 
